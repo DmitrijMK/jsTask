@@ -1,28 +1,26 @@
 // Переписать наследование с ES6 на ES5 =================================
-class Person {
-  constructor(name) {
-    this.name = name;
-  }
-
-  getName() {
-    return this.name;
-  }
+function Person(name) {
+  this.name = name;
 }
 
-class Man extends Person {
-  constructor(name, facialHair) {
-    super(name);
-    this.facialHair = facialHair;
-  }
+Person.prototype.getName = function getName() {
+  return this.name;
+};
 
-  getName() {
-    return `Name: ${super.getName()}`;
-  }
+function Man(name, facialHair) {
+  Person.apply(this, arguments);
+  this.facialHair = facialHair;
 
-  getFacialHair() {
+  this.getName = function getName() {
+    return `Name: ${this.name}`;
+  };
+
+  this.getFacialHair = function getFacialHair() {
     return this.facialHair;
-  }
+  };
 }
+
+Man.prototype = Object.create(Person.prototype);
 
 const person = new Person('somebody');
 console.log(person.getName()); // somebody
