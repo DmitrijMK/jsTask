@@ -12,7 +12,7 @@ const secondUrl = 'http://www.json-generator.com/api/json/get/cfVGucaXPC';
 const httpGet = url => fetch(url).then(response => response.json());
 
 const getDataMethodPromise = (url1, url2) => httpGet(url1)
-  .then(({getUsersData}) => getUsersData ? httpGet(url2)
+  .then(({ getUsersData }) => getUsersData ? httpGet(url2)
     .then(result => console.log(result)) : console.error('error'));
 
 const getDataMethodAsyncAwait = async (url1, url2) =>
@@ -65,6 +65,9 @@ const getResolvedPromise = value =>
   new Promise(resolve => resolve(value));
 
 getResolvedPromise(500)
-  .then((value) => if (value > 300){
-  throw new Error('Ошибка')
-    .catch(alert);
+  .then(function(value) {
+    if (value > 300) {
+      throw new Error('Ошибка');
+    }
+  })
+  .catch(error => console.log(error)).finally(console.log('This is Finally!'));
