@@ -1,29 +1,34 @@
 // Переписать наследование с ES6 на ES5 =================================
-function Person(name) {
-  this.name = name;
+function Person(value) {
+  const that = {};
+  that.name = value.name;
 
-  this.getName = function getName() {
-    return this.name;
+  that.getName = function getName() {
+    return that.name;
   };
+
+  return that;
 }
 
-function Man(name, facialHair) {
-  Person.apply(this, arguments);
-  this.facialHair = facialHair;
+function Man(value, nextValue) {
+  const that = Person(value);
+  that.facialHair = nextValue.facialHair;
 
-  const parentGetName = this.getName();
-  this.getName = function getName() {
-    return `Name: ${parentGetName}`;
+  that.getName = function getName() {
+    return `Name: ${that.name}`;
   };
 
-  this.getFacialHair = function getFacialHair() {
-    return this.facialHair;
+  that.getFacialHair = function getFacialHair() {
+    return that.facialHair;
   };
+
+  return that;
 }
 
-const person = new Person('somebody');
+const person = Person({ name: 'somebody' });
 console.log(person.getName()); // somebody
 
-const man = new Man('Viktor', true);
+const man = Man({ name: 'Viktor' }, { facialHair: true });
 console.log(man.getName()); // Name: Viktor
 console.log(man.getFacialHair()); // true
+
