@@ -1,26 +1,25 @@
 // Переписать наследование с ES6 на ES5 =================================
 function Person(name) {
   this.name = name;
-}
 
-Person.prototype.getName = function getName() {
-  return this.name;
-};
+  this.getName = function getName() {
+    return this.name;
+  };
+}
 
 function Man(name, facialHair) {
   Person.apply(this, arguments);
   this.facialHair = facialHair;
 
+  const parentGetName = this.getName();
   this.getName = function getName() {
-    return `Name: ${this.name}`;
+    return `Name: ${parentGetName}`;
   };
 
   this.getFacialHair = function getFacialHair() {
     return this.facialHair;
   };
 }
-
-Man.prototype = Object.create(Person.prototype);
 
 const person = new Person('somebody');
 console.log(person.getName()); // somebody
