@@ -3,4 +3,4 @@ Array.prototype.duplicate = function duplicate() {
   return [...this, ...this];
 };
 
-console.log([].duplicate()); // [1, 2, 3, 4, 1, 2, 3, 4]
+console.log([1, 2, 3, 4].duplicate()); // [1, 2, 3, 4, 1, 2, 3, 4]
