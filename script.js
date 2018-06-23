@@ -52,7 +52,8 @@ async function makeRequestsConsistently2(urls) {
   console.log(result);
 }
 
-const makeRequestsParallel = urls => Promise.all(urls.map(httpGet))
+const makeRequestsParallel = urls => Promise
+  .all(urls.map(httpGet))
   .then(result => console.log(result));
 
 makeRequestsConsistently(urlsArr);
@@ -61,11 +62,10 @@ makeRequestsParallel(urlsArr);
 
 // 4 ===================================
 
-const getResolvedPromise = value =>
-  new Promise(resolve => resolve(value));
+const getResolvedPromise = value => Promise.resolve(value);
 
 getResolvedPromise(500)
-  .then(function(value) {
+  .then((value) => {
     if (value > 300) {
       throw new Error('Ошибка');
     }
