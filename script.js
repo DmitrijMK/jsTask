@@ -1,11 +1,14 @@
 // 6. Полифилы
-
 Object.prototype.myApply = function myApply(obj, value) {
   return this.call(obj, ...value);
 };
 
 Object.prototype.myCall = function myCall(obj, ...value) {
   return this.apply(obj, value);
+};
+
+Object.prototype.myBindByCall = function myBindByCall(obj, ...value) {
+  return this.call(obj, value);
 };
 
 const obj1 = {
