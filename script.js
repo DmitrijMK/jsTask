@@ -1,4 +1,6 @@
 // 6. Полифилы
+
+// 1.
 Object.prototype.myApply = function myApply(obj, value) {
   return this.call(obj, ...value);
 };
@@ -8,7 +10,7 @@ Object.prototype.myCall = function myCall(obj, ...value) {
 };
 
 Object.prototype.myBindByCall = function myBindByCall(obj, ...value) {
-  return this.call(obj, value);
+  return () => this.call(obj, ...value);
 };
 
 const obj1 = {
@@ -31,3 +33,5 @@ const f1 = obj1.foo.myBindByCall(obj2, 5, 5);
 console.log(f1()); // 40
 const f2 = obj1.foo.myBindByCall(obj2, 5, 5, 10);
 console.log(f2()); // 50
+
+// 2. Написать полифил на Object.create ===========================
