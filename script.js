@@ -1,5 +1,4 @@
 // 6. Полифилы
-
 // 1. myApply myCall myBindByCall
 // Object.prototype.myApply = function myApply(obj, value) {
 //   return this.call(obj, ...value);
@@ -59,3 +58,21 @@ const obj2 = objectCreate(obj, {
 
 console.log(obj2); // { p: 20, k: 30, __proto__: { a: 1 } }
 
+// 3 Написать свою реализацию new в виде функции myNew=========================
+function myNew(func) {
+  const that = Object.create(func.prototype);
+  func.apply(that);
+  return that;
+}
+
+function F() {
+  this.a = 10;
+}
+
+F.prototype.foo = function foo() {
+  return this.a;
+};
+
+const a = myNew(F);
+console.log(a); // { a: 10, __proto__: { foo, constructor } }
+console.log(a.foo()); // 10
