@@ -81,26 +81,18 @@
 // 4. Написать полифил на Object.assign=========================
 function objectAssign(target, ...sources) {
   if (!target) throw new TypeError('Can`t convert');
+  const result = Object(target);
 
-  for (let i = 0; i < sources.length; i++) {
-    const nextSource = sources[i];
-    if (!nextSource) continue;
-
-    const keysArray = Object.keys(nextSource);
-    for (let i = 0; i < keysArray.length; i++) {
-      const desc = Object.getOwnPropertyDescriptor(nextSource, keysArray[i]);
-
-      if (desc !== undefined && desc.enumerable) {
-        target[keysArray[i]] = nextSource[keysArray[i]];
-      }
-    }
+  for (const nextSorce of sources) {
+    if (!nextSorce) continue;
+    for (const j of Object.keys(nextSorce)) result[j] = nextSorce[j];
   }
-  return target;
+  return result;
 }
 
 const o2 = { b: 2, z: 5, f: null };
 const o3 = { c: 3 };
-const ar = [1];
+const ar = 1;
 const df = null;
 
 const obj = objectAssign(ar, o2, o3, df);
