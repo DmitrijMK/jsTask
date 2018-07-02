@@ -83,9 +83,12 @@ function objectAssign(target, ...sources) {
   if (!target) throw new TypeError('Can`t convert');
   const result = Object(target);
 
-  for (const nextSorce of sources) {
-    if (!nextSorce) continue;
-    for (const j of Object.keys(nextSorce)) result[j] = nextSorce[j];
+  for (const nextSource of sources) {
+    if (!nextSource) continue;
+    for (const j of Object.keys(nextSource)) {
+      const desc = Object.getOwnPropertyDescriptor(nextSource, j);
+      if (desc.enumerable) result[j] = nextSource[j];
+    }
   }
   return result;
 }
